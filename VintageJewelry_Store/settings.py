@@ -34,6 +34,7 @@ INSTALLED_APPS = [
 
     'VintageJewelry_Store.apps.users',
     'VintageJewelry_Store.apps.products',
+    'VintageJewelry_Store.apps.orders',
 
     # Other
     'phonenumber_field',
