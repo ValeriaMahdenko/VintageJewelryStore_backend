@@ -22,7 +22,8 @@ ALLOWED_HOSTS = ENV.get('ALLOWED_HOSTS')
 
 # Application definition
 
-INSTALLED_APPS = [ 
+
+INSTALLED_APPS = [
     # Default
     'django.contrib.admin',
     'django.contrib.auth',
@@ -31,9 +32,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Other
-    #'VintageJewelry_Store.apps.users'
+    'VintageJewelry_Store.apps.users',
 
+    # Other
+    'phonenumber_field',
+    'django_countries',
+    'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -102,6 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'users.ShopUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -116,7 +122,15 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'EXCEPTION_HANDLER': 'fashion_store.exceptions.core_exception_handler',
+    'NON_FIELD_ERRORS_KEY': 'error',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -125,4 +139,4 @@ STATIC_URL = '/static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+#DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
