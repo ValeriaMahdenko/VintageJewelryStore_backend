@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -127,12 +128,17 @@ USE_TZ = True
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
-    'EXCEPTION_HANDLER': 'fashion_store.exceptions.core_exception_handler',
     'NON_FIELD_ERRORS_KEY': 'error',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=300),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+}
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
