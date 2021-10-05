@@ -7,8 +7,19 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
+from .forms import ShopUserForm
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.core import serializers
 
 User = get_user_model()
+
+
+def indexView(request):
+    user = request.user
+    form = ShopUserForm()
+    users = User.objects.filter(pk=user.pk)
+    return render(request, "index.html", {"form": form, "users": users})
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -18,13 +29,26 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return User.objects.filter(pk=user.pk)
+        form = ShopUserForm()
+        users = User.objects.filter(pk=user.pk)
+        return render(self.request, "index.html", {"form": form, "users": users})
 
     def create(self, request):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        if request.is_ajax and request.method == "POST":
+            # get the form data
+            form = ShopUserForm(request.POST)
+            # save the data and after fetch the object in instance
+            if form.is_valid():
+                #form.save()
+                # serialize in new participant object in json
+                # send to client side.
+                serializer = self.serializer_class(data=request.data)
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+                return JsonResponse({"instance": serializer.data}, status=200)
+            else:
+                return JsonResponse({"error": form.errors}, status=400)
+        return JsonResponse({"error": ""}, status=400)
 
 
 class RetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
