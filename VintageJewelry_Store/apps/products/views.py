@@ -1,7 +1,7 @@
 from rest_framework import viewsets, status
 from .serializers import ProductGetSerializer, ProductSerializer
 from .models import Product
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
 
@@ -15,19 +15,15 @@ class ProductList(viewsets.ReadOnlyModelViewSet):
     serializer_class = ProductGetSerializer
 
 
-class MyProductsList(viewsets.ModelViewSet):
+class AdminProductsList(viewsets.ModelViewSet):
     search_fields = ['name', 'brand_name', 'material', 'description']
     ordering_fields = '__all__'
     filter_backends = [OrderingFilter, SearchFilter]
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated]
-    queryset = Product.objects.all()
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
     def get_queryset(self):
-        return Product.objects.filter(owner_id=self.request.user)
-
-    def perform_create(self, serializer):
-        serializer.save(owner_id=self.request.user)
+        return Product.objects.all()
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

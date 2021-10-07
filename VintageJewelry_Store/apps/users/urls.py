@@ -9,7 +9,7 @@ router = routers.DefaultRouter()
 router.register(r'superusers', views.SuperUserViewSet)
 
 urlpatterns = [
-    path('', views.indexView),
+    # path('', views.indexView),
     path('users/', views.RetrieveUpdateDestroyAPIView.as_view(),
         name='read_update_delete'),
     path('users/register/', views.UserViewSet.as_view({'post': 'create'}),

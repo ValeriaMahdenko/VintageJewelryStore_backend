@@ -53,10 +53,6 @@ class OrderPostSerializer(serializers.ModelSerializer):
         for product_dict in products_list:
             product = product_dict['product']
             amount_selected = product_dict['amount_selected']
-            if product.owner_id == order.customer:
-                order.delete()
-                raise serializers.ValidationError(
-                    'This is your product, you can not order it')
             if amount_selected <= product.amount:
                 OrderProducts.objects.create(amount_selected=amount_selected,
                     product=product, order=order)
@@ -92,10 +88,6 @@ class OrderPostSerializer(serializers.ModelSerializer):
             for product_dict in products_list:
                 product = product_dict['product']
                 amount_selected = product_dict['amount_selected']
-                if product.owner_id == order.customer:
-                    order.delete()
-                    raise serializers.ValidationError(
-                        'This is your product, you can not order it')
                 if amount_selected <= product.amount:
                     OrderProducts.objects.create(
                         amount_selected=amount_selected, product=product,

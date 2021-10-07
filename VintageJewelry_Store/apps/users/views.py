@@ -31,7 +31,8 @@ class UserViewSet(viewsets.ModelViewSet):
         user = self.request.user
         form = ShopUserForm()
         users = User.objects.filter(pk=user.pk)
-        return render(self.request, "index.html", {"form": form, "users": users})
+        return users
+        # return render(self.request, "index.html", {"form": form, "users": users})
 
     def create(self, request):
         if request.is_ajax and request.method == "POST":
@@ -39,7 +40,7 @@ class UserViewSet(viewsets.ModelViewSet):
             form = ShopUserForm(request.POST)
             # save the data and after fetch the object in instance
             if form.is_valid():
-                #form.save()
+                # form.save()
                 # serialize in new participant object in json
                 # send to client side.
                 serializer = self.serializer_class(data=request.data)
