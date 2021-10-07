@@ -13,3 +13,10 @@ class Product(models.Model):
     description = models.TextField(blank=True)
     material = models.CharField(max_length=100)
     amount = models.PositiveIntegerField(null=True, blank=True)
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(
+        upload_to='product_images/', null=True, blank=True, )

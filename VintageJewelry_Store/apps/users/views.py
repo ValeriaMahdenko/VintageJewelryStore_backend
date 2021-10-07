@@ -32,7 +32,8 @@ class UserViewSet(viewsets.ModelViewSet):
         form = ShopUserForm()
         users = User.objects.filter(pk=user.pk)
         return users
-        # return render(self.request, "index.html", {"form": form, "users": users})
+        # return render(self.request, "index.html",
+        # {"form": form, "users": users})
 
     def create(self, request):
         if request.is_ajax and request.method == "POST":
