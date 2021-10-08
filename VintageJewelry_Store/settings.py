@@ -71,6 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n'
             ],
         },
     },
@@ -151,13 +152,12 @@ STATIC_URL = '/static/'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),  # comment
-)
-STATIC_ROOT = os.path.join(BASE_DIR, 'VintageJewelry_Store/static')   # run
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'VintageJewelry_Store/static'), ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')   # run
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(Path(__file__).resolve().parent, 'VintageJewelry_Store/media')
+MEDIA_ROOT = os.path.join(Path(__file__).resolve().parent, 'media')
 
 
 # Default primary key field type

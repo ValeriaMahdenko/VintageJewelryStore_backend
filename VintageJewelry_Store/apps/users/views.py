@@ -31,9 +31,7 @@ class UserViewSet(viewsets.ModelViewSet):
         user = self.request.user
         form = ShopUserForm()
         users = User.objects.filter(pk=user.pk)
-        return users
-        # return render(self.request, "index.html",
-        # {"form": form, "users": users})
+        return render(self.request, "index.html", {"form": form, "users": users})
 
     def create(self, request):
         if request.is_ajax and request.method == "POST":
@@ -49,7 +47,7 @@ class UserViewSet(viewsets.ModelViewSet):
                 serializer.save()
                 return JsonResponse({"instance": serializer.data}, status=200)
             else:
-                return JsonResponse({"error": form.errors}, status=400)
+                return JsonResponse({"errors": form.errors}, status=400)
         return JsonResponse({"error": ""}, status=400)
 
 
