@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>| Vintage Jewelry Store</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/registration.css' %}" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   
+</head>
+<body>
+<h1>Registration</h1>
+<div class="container">
+    <form id="registration">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">
+      <strong>{{ field.label }}</strong>
+      </label>
+      <div class="col-sm-10">
+      {{ field }}
+      </div>
+    </div>
+    {% endfor %}
+    <div class="form-group row">
+    <button type="submit" id="Url" data-url="{% url 'register' %}"> Register </button>
+    </div>
+    <form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+{% load static %}
+<script src="{% static 'js/registration.js' %}"></script>
+</body>
+</html>

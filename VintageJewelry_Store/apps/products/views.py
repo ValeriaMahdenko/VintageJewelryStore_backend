@@ -7,13 +7,18 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
 from rest_framework.exceptions import NotAcceptable
+from django.shortcuts import render
+
+
+def indexView(request):
+    queryset = Product.objects.all()
+    return render(request, "index.html", {"products": queryset})
 
 
 class ProductList(viewsets.ReadOnlyModelViewSet):
-    search_fields = ['name', 'brand_name', 'material', 'description']
+    search_fields = ['name', 'brand_name', 'material', 'description', ]
     ordering_fields = '__all__'
-    filter_backends = [OrderingFilter, SearchFilter]
-
+    filter_backends = (OrderingFilter, SearchFilter, )
     queryset = Product.objects.all()
     serializer_class = ProductGetSerializer
 

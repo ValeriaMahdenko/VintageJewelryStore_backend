@@ -19,7 +19,7 @@ def indexView(request):
     user = request.user
     form = ShopUserForm()
     users = User.objects.filter(pk=user.pk)
-    return render(request, "index.html", {"form": form, "users": users})
+    return render(request, "registration.html", {"form": form, "users": users})
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -31,7 +31,7 @@ class UserViewSet(viewsets.ModelViewSet):
         user = self.request.user
         form = ShopUserForm()
         users = User.objects.filter(pk=user.pk)
-        return render(self.request, "index.html", {"form": form, "users": users})
+        return render(self.request, "registration.html", {"form": form, "users": users})
 
     def create(self, request):
         if request.is_ajax and request.method == "POST":

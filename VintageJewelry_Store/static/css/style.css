@@ -1,0 +1,200 @@
+body
+{
+  margin:0 auto;
+  font-family: Arial, sans-serif;
+}
+header{
+  width: 100%;
+  background: #D8E3AB;
+  height: 100px;
+  
+}
+
+.title{
+  font-size: 36px;
+  padding-top: 10px;
+  text-align: center;
+   }
+
+.menu{
+  list-style: none;
+  top: 10px;
+  right: 100px;
+  position: fixed;
+}
+#logo
+{
+  position: absolute;
+    padding: 12px;
+    color: #83e407;
+    font-size: 23px;
+}
+
+.list
+{
+  background: rgba(0,0,0,0.7);
+  box-shadow: inset 0 -1px 0 #6f6f6f;
+    border-bottom: 1px solid #232323;
+}
+
+#navigation
+{
+  float: right;
+}
+
+#navigation li
+{
+  display: table-cell;
+}
+
+#navigation li a
+{
+  padding: 14px 10px;
+  text-transform: uppercase;
+    text-decoration: none;
+  color: white;
+}
+
+.active
+{
+  color: #83e407 !important;
+  border-bottom: 4px solid #81e407;
+}
+
+#main-container
+{
+  min-width: 800px;
+  width: 1000px;
+  min-height: 600px;
+    height: auto !important;
+    height: 600px;
+  margin: 0 auto;
+  border: 1px solid #dfd9d9;
+  border-width: 0 1px;
+  box-shadow: inset 1px 0px 0px #fff, inset -1px 0px 0px #fff;
+  border-image-repeat: repeat;
+  background-color: rgba(255, 255, 255, 0.57);
+  display: table;
+}
+div.main-container div.col
+{
+  
+  min-width: 800px;
+  width: 1000px;
+  min-height: 600px;
+    height: auto !important;
+    height: 600px;
+  margin: 0 auto;
+  width: 100px; height: 100px; /* Размеры */
+  background: rgb(242, 247, 182); /* Цвет фона */
+  border: 3px solid #fff; /* Белая рамка */
+  border-radius: 10px; /* Радиус скругления */
+  display: inline-block;
+  display: table;
+}
+
+div.main-container div.col:hover {
+  border: 2px solid black; /* Чёрная рамка */
+ }
+div.main-container div.col div.card-product img.card-img-top
+{
+  width: 400px;
+  float: left;
+}
+
+div.main-container div.col div.card-product div.card-body
+{
+  float: left;
+}
+
+input[type="text"],[type="password"]
+{
+  border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.action
+{
+  float: right;
+    color: #ff8f00;
+    font-weight: bold;
+}
+
+.post-container
+{
+  margin: 20px;
+  border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    padding: 4px;
+}
+
+.post-container select
+{
+  color: rgb(0, 0, 0);
+  font-weight: normal;
+  margin-right: 190;
+}
+
+.btn
+{
+  background-color: #a2fd83;
+    border: 1px solid #06ab20;
+    padding: 6px;
+    border-radius: 5px;
+    font-weight: bold;
+  cursor: pointer;
+}
+
+.cancel
+{
+  background-color: #fd8383;
+    border: 1px solid #ab0606;
+}
+
+#status
+{
+  color: #80e004;
+    font-weight: bold;
+}
+
+h3
+{
+  border-bottom: 1px solid #CCCCCC;
+  padding: 4px 0;
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+
+.post-text
+{
+  margin: 10px 0;
+  color: #5c6165;
+}
+
+.price
+{
+  font-size: 30px;
+    font-weight: bold;
+    color: #83e407;
+    text-align: right;
+}
+
+#profile-photo
+{
+  float: left;
+    max-width: 300px;
+    margin-right: 10px;
+}
+
+#social-block
+{
+  text-align: center;
+}
+
+.social-icon
+{
+  margin-right: 5px;
+  max-width: 140px;
+}
