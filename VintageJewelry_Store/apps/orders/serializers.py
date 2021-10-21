@@ -81,7 +81,7 @@ class OrderPostSerializer(serializers.ModelSerializer):
                 product.save()
                 old_order_product.delete()
             total_price = 0
-            
+
             for product_dict in products_list:
                 product = product_dict['product']
                 amount_selected = product_dict['amount_selected']
