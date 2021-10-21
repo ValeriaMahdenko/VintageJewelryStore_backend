@@ -63,7 +63,6 @@ class OrderPostSerializer(serializers.ModelSerializer):
                 order.delete()
                 raise serializers.ValidationError(
                     'Not enough units of this product available')
-        # delete order with no selected products
         if total_price == 0:
             order.delete()
             raise serializers.ValidationError(
@@ -75,7 +74,6 @@ class OrderPostSerializer(serializers.ModelSerializer):
     def update(self, order, validated_data):
         if 'orderproducts_set' in validated_data:
             products_list = validated_data.pop('orderproducts_set')
-            # Restore back available amount of removed products in db
             old_order_products = OrderProducts.objects.filter(order=order.id)
             for old_order_product in old_order_products:
                 product = Product.objects.get(pk=old_order_product.product.pk)
@@ -83,8 +81,7 @@ class OrderPostSerializer(serializers.ModelSerializer):
                 product.save()
                 old_order_product.delete()
             total_price = 0
-            # Decrease available amount of selected products i db
-            # and calculate total price
+            
             for product_dict in products_list:
                 product = product_dict['product']
                 amount_selected = product_dict['amount_selected']
@@ -100,11 +97,6 @@ class OrderPostSerializer(serializers.ModelSerializer):
                     raise serializers.ValidationError(
                         'Not enough units of this product')
             order.total_price = total_price
-            # delete order with no selected products
-            if total_price == 0:
-                order.delete()
-                raise serializers.ValidationError(
-                    'Please add products to the order')
         for key, value in validated_data.items():
             setattr(order, key, value)
         order.save()

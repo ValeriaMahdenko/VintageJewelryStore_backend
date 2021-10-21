@@ -1,7 +1,7 @@
 from rest_framework import viewsets, permissions
 from .serializers import OrderGetSerializer, OrderPostSerializer
 from .models import Order
-from rest_framework.filters import SearchFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -17,7 +17,8 @@ class OrderList(viewsets.ModelViewSet):
     search_fields = ['selected_products__name',
         'selected_products__brand_name', 'selected_products__material',
         'selected_products__description']
-    filter_backends = [SearchFilter]
+    ordering_fields = '__all__'
+    filter_backends = [OrderingFilter, SearchFilter]
 
     def get_queryset(self):
         if self.request.method == 'GET' and self.request.user.is_admin:
@@ -38,5 +39,5 @@ class OrderList(viewsets.ModelViewSet):
             self.perform_create(serializer)
             headers = self.get_success_headers(serializer.data)
             return Response(
-                serializer.data, status=status.HTTP_403_FORBIDDEN,
+                serializer.data, status=status.HTTP_200_OK,
                 headers=headers)

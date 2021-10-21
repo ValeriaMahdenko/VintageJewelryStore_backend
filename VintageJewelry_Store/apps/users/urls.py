@@ -3,13 +3,13 @@ from rest_framework import routers
 from . import views
 from rest_framework_simplejwt.views import (
     TokenObtainPairView, TokenRefreshView)
+from django_email_verification import urls as email_urls
 
 
 router = routers.DefaultRouter()
 router.register(r'superusers', views.SuperUserViewSet)
 
 urlpatterns = [
-    path('user', views.indexView, name='new_user'),
     path('users/', views.RetrieveUpdateDestroyAPIView.as_view(),
         name='read_update_delete'),
     path('users/register/', views.UserViewSet.as_view({'post': 'create'}),
@@ -18,6 +18,7 @@ urlpatterns = [
         name='token_obtain_pair'),
     path('users/token/refresh/', TokenRefreshView.as_view(),
         name='token_refresh'),
+    path('users/email-confirm/', include(email_urls)),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls',
         namespace='rest_framework'))

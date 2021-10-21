@@ -31,7 +31,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        exclude = ['is_admin', 'is_superuser', 'is_active', 'last_login']
+        exclude = ['is_superuser', 'is_active', 'last_login']
 
     def create(self, validated_data):
         validated_data['password'] = make_password(

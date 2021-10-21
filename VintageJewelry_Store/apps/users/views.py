@@ -7,19 +7,9 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
-from .forms import ShopUserForm
-from django.shortcuts import render
-from django.http import JsonResponse
-from django.core import serializers
+from django_email_verification import send_email
 
 User = get_user_model()
-
-
-def indexView(request):
-    user = request.user
-    form = ShopUserForm()
-    users = User.objects.filter(pk=user.pk)
-    return render(request, "registration.html", {"form": form, "users": users})
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -29,26 +19,15 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        form = ShopUserForm()
         users = User.objects.filter(pk=user.pk)
-        return render(self.request, "registration.html", {"form": form, "users": users})
+        return users
 
     def create(self, request):
-        if request.is_ajax and request.method == "POST":
-            # get the form data
-            form = ShopUserForm(request.POST)
-            # save the data and after fetch the object in instance
-            if form.is_valid():
-                # form.save()
-                # serialize in new participant object in json
-                # send to client side.
-                serializer = self.serializer_class(data=request.data)
-                serializer.is_valid(raise_exception=True)
-                serializer.save()
-                return JsonResponse({"instance": serializer.data}, status=200)
-            else:
-                return JsonResponse({"errors": form.errors}, status=400)
-        return JsonResponse({"error": ""}, status=400)
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        send_email(user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 class RetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
